@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Feliz Mes 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(to right, #993fba, #c65b5b);
+      font-family: 'Quicksand', sans-serif;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .center-screen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    #start-btn {
+      padding: 15px 30px;
+      font-size: 1.4em;
+      background-color: #ff4081;
+      border: none;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: background 0.3s ease;
+    }
+
+    #start-btn:hover {
+      background-color: #ff1e60;
+    }
+
+    .presentacion {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      margin-top: 30px;
+    }
+
+    .foto {
+      max-width: 100%;
+      text-align: center;
+    }
+
+    .foto img {
+      width: 90vw;
+      max-width: 900px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .foto p {
+      margin-top: 10px;
+      font-size: 1.5em;
+      color: #ffe4ec;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    #final-mensaje {
+      display: none;
+      margin-top: 30px;
+      font-size: 2.5em;
+      color: #fff0f5;
+      text-align: center;
+      font-family: 'Great Vibes', cursive;
+      padding: 20px;
+      animation: aparecer 1.5s ease-in-out;
+    }
+
+    #counter {
+      font-size: 1.8em;
+      margin-top: 20px;
+      text-align: center;
+      display: none;
+    }
+
+    .navegacion {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .navegacion button {
+      background-color: transparent;
+      border: none;
+      font-size: 2.5em;
+      color: #ffffffcc;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .navegacion button:hover {
+      color: #fff;
+    }
+
+    #love-btn {
+      display: none;
+      margin: 30px auto;
+      padding: 15px 40px;
+      background-color: #ff80ab;
+      color: white;
+      font-size: 1.5em;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      animation: latido 1.5s infinite;
+      box-shadow: 0 0 10px #fff3;
+      transition: transform 0.2s ease;
+      display: flex;
+      justify-content: center;
+    }
+
+    #love-btn:hover {
+      background-color: #f06292;
+    }
+
+    @keyframes latido {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.08); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.08); }
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      transform: rotate(45deg);
+      animation: float 6s infinite ease-in;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    .emoticon {
+      position: absolute;
+      font-size: 2em;
+      animation: floatUp 4s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-120vh) rotate(720deg); opacity: 0; }
+    }
+
+    @keyframes float {
+      0% { top: 100%; opacity: 1; }
+      100% { top: -10%; opacity: 0; }
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .foto p {
+        font-size: 1.2em;
+      }
+      #start-btn {
+        font-size: 1.1em;
+        padding: 12px 25px;
+      }
+      #final-mensaje {
+        font-size: 2em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="center-screen" id="inicio">
+    <button id="start-btn">Empezar sorpresa ❤️</button>
+  </div>
+
+  <div class="presentacion" id="presentacion">
+    <div class="foto" id="foto-container">
+      <img id="imagen" src="" alt="foto">
+      <p id="frase"></p>
+    </div>
+
+    <div class="navegacion">
+      <button id="prev">&#8592;</button>
+      <button id="next">&#8594;</button>
+    </div>
+  </div>
+
+  <div id="final-mensaje">💖 ¡Feliz Mes, Mi Amor! 💖</div>
+  <div id="counter"></div>
+  <div style="text-align: center;">
+    <button id="love-btn">Te amo ❤️</button>
+  </div>
+
+  <audio id="musica" src="resource/Musica.mp3" type="audio/mpeg"></audio>
+
+  <script>
+    const fotos = [
+      {
+        src: "resource/foto1.jpeg",
+        frase: "Me encanta tu forma de ser 😻"
+      },
+      {
+        src: "resource/foto2.jpeg",
+        frase: "Cada momento con vos es unico ✨"
+      },
+      {
+        src: "resource/foto3.jpeg",
+        frase: "Juntos vamos a llegar lejos ❤️"
+      }
+    ];
+
+    let indice = 0;
+
+    const startBtn = document.getElementById("start-btn");
+    const inicio = document.getElementById("inicio");
+    const presentacion = document.getElementById("presentacion");
+    const imagen = document.getElementById("imagen");
+    const frase = document.getElementById("frase");
+    const mensajeFinal = document.getElementById("final-mensaje");
+    const contador = document.getElementById("counter");
+    const loveBtn = document.getElementById("love-btn");
+    const musica = document.getElementById("musica");
+
+    const btnNext = document.getElementById("next");
+    const btnPrev = document.getElementById("prev");
+
+    function mostrarFoto(index) {
+      if (index >= 0 && index < fotos.length) {
+        imagen.src = fotos[index].src;
+        frase.innerText = fotos[index].frase;
+        mensajeFinal.style.display = "none";
+        contador.style.display = "none";
+        loveBtn.style.display = "none";
+      }
+
+      if (index === fotos.length) {
+        presentacion.style.display = "none";
+        mensajeFinal.style.display = "block";
+        contador.style.display = "block";
+        loveBtn.style.display = "inline-block";
+      }
+    }
+
+    startBtn.addEventListener("click", () => {
+      inicio.style.display = "none";
+      presentacion.style.display = "flex";
+      mostrarFoto(indice);
+      musica.play();
+    });
+
+    btnNext.addEventListener("click", () => {
+      if (indice < fotos.length) {
+        indice++;
+        mostrarFoto(indice);
+      }
+    });
+
+    btnPrev.addEventListener("click", () => {
+      if (indice > 0 && indice <= fotos.length) {
+        indice--;
+        mostrarFoto(indice);
+      }
+    });
+
+    // Contador de días
+    const fechaAniversario = new Date("2025-06-11");
+    const hoy = new Date();
+    const diferencia = hoy - fechaAniversario;
+    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    contador.innerText = `Llevamos ${dias} días juntos 💘 Agradezco mucho lo que estoy viviendo con vos, y aspiro a que sea mucho mas, juntos vamos a crecer y a ser mejores personas <3 `;
+
+    // Corazones flotantes permanentes
+    function crearCorazon() {
+      const corazon = document.createElement("div");
+      corazon.classList.add("heart");
+      corazon.style.left = Math.random() * 100 + "vw";
+      corazon.style.animationDuration = (Math.random() * 3 + 3) + "s";
+      document.body.appendChild(corazon);
+      setTimeout(() => corazon.remove(), 6000);
+    }
+
+    setInterval(crearCorazon, 300);
+
+    // Gatitos al hacer clic
+    loveBtn.addEventListener("click", () => {
+      for (let i = 0; i < 6; i++) {
+        const gatito = document.createElement("div");
+        gatito.classList.add("emoticon");
+        gatito.textContent = "🐱";
+        gatito.style.left = Math.random() * 100 + "vw";
+        gatito.style.bottom = "0";
+        gatito.style.fontSize = (Math.random() * 1.5 + 1.5) + "em";
+        document.body.appendChild(gatito);
+        setTimeout(() => gatito.remove(), 4000);
+      }
+    });
+  </script>
+
+</body>
+</html>
